@@ -1,29 +1,26 @@
 import csv
-import sys
 import time
+from redis import StrictRedis
+from multiprocessing import Process
 
-FileName = ["32571881_plan.csv_norm", "32571893_plan.csv_norm", "32572121_plan.csv_norm", "492868_plan.csv_norm"]
-HostName = ["ec2-54-244-209-229.us-west-2.compute.amazonaws.com"]
 
-nrs = len(HostName)
-nrs = 10
+def create_connection(HostName):
+    rs = []
+    for hostname in HostName:
+        r1 = StrictRedis(host=hostname, port=6379, db=0).pipeline()
+        rs.append(r1)
+    print("Connection all established")
+    return rs
 
-exec_id = int(sys.argv[1])
-delete_map = dict()
-rs = 0
-#max_val = 0
-#max_grp = [0] * 10
-
-def run_command(cmds):
-    #global max_val
-    global nrs, HostName, rs, max_grp
+def run_command(cmds, rs, tenant_name):
+    nrs = len(rs)
     for cmd in cmds:
-        [op, queryID, size] = cmd.split(":")
-        size = int(size)
+        [op, queryID, size_str] = cmd.split(":")
+        size = int(size_str)
         #if(size > max_val):
         #    max_val = size
         if(size > 1024 * 1024):
-            chunks = size / 1024 / 1024 + 1
+            chunks = int(size / (1024 * 1024)) + 1
             if size % (1024 * 1024) == 0:
                 chunks = chunks - 1
         else:
@@ -32,38 +29,80 @@ def run_command(cmds):
             if op == "put":
                 datasize = min(size, 1024 * 1024)
                 data = 'a' * datasize
-                print("Put " + queryID + "_" + str(i) + " " + str(datasize))
+        #        print("Put " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
                 size = size - datasize
                 idx = int(queryID) % nrs
-            #rs.set(queryID, data)
+                rs[idx].set(tenant_name + "_" + queryID + "_" + str(i), data)
             elif op == "remove":
                 idx = int(queryID) % nrs
-                print("Remove " + queryID + "_" + str(i) + " " + str(size))
-            #rs.delete(queryID)
+        #        print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(size))
+                rs[idx].delete(tenant_name + "_" + queryID + "_" + str(i))
+    for r in rs:
+        r.execute()
 
 
-with open(FileName[exec_id]) as f:
-    execution_plan = []
-    csv_reader = csv.reader(f, delimiter=' ')
-    prev_command = 0
-    for row in csv_reader:
-        if(len(row) == 1):
-            continue
-        execution_plan.append(row)
 
 
-    prev_time = execution_plan[0][0]
-    prev_command = execution_plan[0][1:]
-    run_command(prev_command)
-    for i in range(1, len(execution_plan)):
-        cur_time = execution_plan[i][0]
-        command = execution_plan[i][1:]
-        #time.sleep(int(cur_time) - int(prev_time))
-        run_command(command)
-        prev_time = cur_time
+def execute(filename, hostname, rs, execution_plan):
+        prev_time = execution_plan[0][0]
+        prev_command = execution_plan[0][1:]
+        tenant_name = filename.split('_')[0]
+        run_command(prev_command, rs, tenant_name)
+        for i in range(1, len(execution_plan)):
+            cur_time = execution_plan[i][0]
+            command = execution_plan[i][1:]
+            time.sleep((int(cur_time) - int(prev_time)))
+            run_command(command, rs, tenant_name)
+            prev_time = cur_time
 
 
-    #print(max_val)
+if __name__ == "__main__":
+
+    FileName = ["new_32571881_plan.csv_norm", "new_32571893_plan.csv_norm", "new_32572121_plan.csv_norm", "new_492868_plan.csv_norm"]
+    #FileName = ["32571881_plan.csv_norm", "32571893_plan.csv_norm", "32572121_plan.csv_norm", "492868_plan.csv_norm"]
+    HostName = ["ec2-54-149-159-4.us-west-2.compute.amazonaws.com",
+    "ec2-54-245-193-27.us-west-2.compute.amazonaws.com",
+    "ec2-34-221-168-60.us-west-2.compute.amazonaws.com",
+    "ec2-54-201-173-208.us-west-2.compute.amazonaws.com",
+    "ec2-34-221-179-53.us-west-2.compute.amazonaws.com",
+    "ec2-54-190-195-23.us-west-2.compute.amazonaws.com",
+    "ec2-35-160-108-71.us-west-2.compute.amazonaws.com",
+    "ec2-34-216-21-74.us-west-2.compute.amazonaws.com",
+    "ec2-34-222-48-204.us-west-2.compute.amazonaws.com",
+    "ec2-54-214-109-51.us-west-2.compute.amazonaws.com"]
+
+    rs = create_connection(HostName)
+    execution = {}
+    for filename in FileName:
+        with open(filename) as f:
+            execution_plan = []
+            csv_reader = csv.reader(f, delimiter=' ')
+            prev_command = 0
+            for row in csv_reader:
+                if(len(row) == 1):
+                    continue
+                execution_plan.append(row)
+        execution[filename] = execution_plan
+
+    Pool = []
+    for i in range(len(FileName)):
+        if i == 0:
+            servers = rs[0:2]
+        elif i == 1:
+            servers = rs[2:4]
+        elif i == 2:
+            servers = rs[4:7]
+        elif i == 3:
+            servers = rs[7:10]
+        p = Process(target=execute, args=(FileName[i], HostName, servers, execution[FileName[i]]))
+        Pool.append(p)
+    for proc in Pool:
+        proc.start()
+    for proc in Pool:
+        proc.join()
+
+
+        #print(max_val)
 
 
 
