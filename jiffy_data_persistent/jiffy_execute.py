@@ -1,27 +1,27 @@
 import csv
 import time
+from jiffy import JiffyClient
 from multiprocessing import Process
-import pocket
 
-def create_connection(hostname, FileName):
-    pocketjobID = []
-    pocket_namenode = pocket.connect(hostname, 9070)
-    MaxStorage = {"1": 1, "2": 1, "3": 0.1, "4":0.01}
+
+
+def create_connection(hostname, FileName, client):
+    queueclient = []
     for filename in FileName:
         name_prefix = filename.split('.')[0]
-        fileID = name_prefix.split('_')[-1]
-        jobid = pocket.register_job(name_prefix, capacityGB=MaxStorage[fileID]) # TODO Change this capacityGB
-        pocketjobID.append(jobid)
+        qc = client.open_or_create_queue("/" + name_prefix, '/tmp' + name_prefix)
+        queueclient.append(qc)
     print("Connection all established")
-    return pocketjobID, pocket_namenode
+    return queueclient
 
-def remove_connection(pocketID):
-    for ID in pocketID:
-        pocket.deregister_job(ID)
+def remove_connection(hostname, FileName, client):
+    for filename in FileName:
+        name_prefix = filename.split('.')[0]
+        client.remove("/" + name_prefix)
     print("Connection all closed")
     return
 
-def run_command(cmds, jobid, tenant_name, namenode):
+def run_command(cmds, fq, tenant_name):
     for cmd in cmds:
         [op, queryID, size_str] = cmd.split(":")
         size = int(size_str)
@@ -32,35 +32,39 @@ def run_command(cmds, jobid, tenant_name, namenode):
         else:
             chunks = 1
         for i in range(chunks):
-            key = queryID + "_" + str(i)
             if op == "put":
                 datasize = min(size, 1024 * 1024)
                 data = 'a' * datasize
-                r = pocket.put_buffer_bytes(namenode, data, len(data), key, jobid)
        #         print("Put " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
                 size = size - datasize
+                fq.put(data)
             elif op == "remove":
-                datasize = min(size, 1024 * 1024)
-                size = size - datasize
-       #         print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
-                r = pocket.get_buffer_bytes(pocket_namenode, key, datasize, jobid, DELETE_AFTER_READ=True)
+       #         print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(size))
+                fq.get()
 
-def execute(filename, jobID, execution_plan, namenode):
+
+
+
+def execute(filename, fq, execution_plan):
         prev_time = execution_plan[0][0]
         prev_command = execution_plan[0][1:]
         tenant_name = filename.split('.')[0]
-        run_command(prev_command, jobID, tenant_name, namenode)
+        run_command(prev_command, fq, tenant_name)
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
             #time.sleep((int(cur_time) - int(prev_time)))
-            run_command(command, jobID, tenant_name, namenode)
+            run_command(command, fq, tenant_name)
             prev_time = cur_time
 
+
 if __name__ == "__main__":
-    FileName = ["pocket_plan_1.csv", "pocket_plan_2.csv", "pocket_plan_3.csv", "pocket_plan_4.csv"]
-    HostName = "10.1.0.10"
-    jobIDs, namenode = create_connection(HostName, FileName)
+
+#    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
+    FileName = ["jiffy_plan_1.csv"]
+    Directory_Server = "127.0.0.1"
+    client = JiffyClient(Directory_Server);
+    fqs = create_connection(Directory_Server, FileName, client)
     execution = {}
     for filename in FileName:
         with open(filename) as f:
@@ -75,12 +79,12 @@ if __name__ == "__main__":
 
     Pool = []
     for i in range(len(FileName)):
-        p = Process(target=execute, args=(FileName[i], jobIDs[i], execution[FileName[i]], namenode))
+        p = Process(target=execute, args=(FileName[i], fqs[i], execution[FileName[i]]))
         Pool.append(p)
     for proc in Pool:
         proc.start()
     for proc in Pool:
         proc.join()
-    remove_connection(jobIDs)
+    remove_connection(Directory_Server, FileName, client)
 
 

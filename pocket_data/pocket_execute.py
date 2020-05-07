@@ -35,15 +35,16 @@ def run_command(cmds, jobid, tenant_name, namenode):
             key = queryID + "_" + str(i)
             if op == "put":
                 datasize = min(size, 1024 * 1024)
-                data = 'a' * datasize
-                r = pocket.put_buffer_bytes(namenode, data, len(data), key, jobid)
+                data = b'a' * datasize
+                pocket.put_buffer_bytes(namenode, data, len(data), key, jobid)
        #         print("Put " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
                 size = size - datasize
             elif op == "remove":
                 datasize = min(size, 1024 * 1024)
                 size = size - datasize
        #         print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
-                r = pocket.get_buffer_bytes(pocket_namenode, key, datasize, jobid, DELETE_AFTER_READ=True)
+                pocket.delete(namenode, key, jobid)
+                #r = pocket.get_buffer_bytes(namenode, key, datasize, jobid, DELETE_AFTER_READ=True)
 
 def execute(filename, jobID, execution_plan, namenode):
         prev_time = execution_plan[0][0]
@@ -53,7 +54,7 @@ def execute(filename, jobID, execution_plan, namenode):
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
-            #time.sleep((int(cur_time) - int(prev_time)))
+            time.sleep((int(cur_time) - int(prev_time)))
             run_command(command, jobID, tenant_name, namenode)
             prev_time = cur_time
 
