@@ -107,10 +107,14 @@ if __name__ == "__main__":
     for i in range(len(FileName)):
         p = Process(target=execute, args=(FileName[i], jobIDs[i], nvmejobIDs[i], execution[FileName[i]], namenode, batch_size, max_val, lock, max_size))
         Pool.append(p)
+    start = time.time()
     for proc in Pool:
         proc.start()
     for proc in Pool:
         proc.join()
+    end = time.time()
     remove_connection(jobIDs + nvmejobIDs)
+    print("Execution time: ")
+    print(end - start)
 
 
