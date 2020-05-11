@@ -34,48 +34,34 @@ def run_command(cmds, fq, tenant_name):
     def delete_func(fqclient, iteration):
         for i in range(iteration):
             fqclient.get()
-    batch_size = 128 * 1024
+    batch_size = 100 * 1024
     for cmd in cmds:
         [op, queryID, size_str] = cmd.split(":")
         size = int(size_str)
         if(size > batch_size):
             chunks = int(size / batch_size) + 1
-            flag = 1
             if size % (batch_size) == 0:
                 chunks = chunks - 1
-                flag = 2
         else:
-            flag = 3
             chunks = 1
+
         data = 'a' * batch_size
         if(op == "put"):
-            if(flag == 1):
-                for i in range(0, chunks, 4):
-                    args = []
-                    for k in range(4):
-                        if(i + k < chunks - 1):
-                            args.append(data)
-                        elif(i + k == chunks - 1):
-                            args.append("a" * ( size % batch_size))
-                        else:
-                            break
-                    fq[0].pipeline_put(args)
-
-            if(flag == 2):
-                for i in range(0, chunks, 4):
-                    args = []
-                    for k in range(4):
-                        if(i + k < chunks):
-                            args.append(data)
-                        else:
-                            break
-                    fq[0].pipeline_put(args)
-
-            if(flag == 3):
-                fq[0].pipeline_put(["a" * size])
-
+            pool = []
+            for i in range(3):
+                p = Process(target=write_func, args=(fq[i], data, 0, int(chunks / 4)))
+                pool.append(p)
+            if(size % batch_size == 0):
+                pool.append(Process(target=write_func, args=(fq[3], data, size % batch_size, int(chunks / 4 + chunks % 4))))
+            else:
+                pool.append(Process(target=write_func, args=(fq[3], data, size % batch_size, int(chunks / 4 + chunks % 4 - 1))))
+            for proc in pool:
+                proc.start()
+            for proc in pool:
+                proc.join()
         elif op == "remove":
             for i in range(chunks):
+       #         print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(size))
                 fq[0].get()
 
 
@@ -97,9 +83,9 @@ def execute(filename, fq, execution_plan):
 
 if __name__ == "__main__":
 
-    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
-    Para = 1
-    #FileName = ["jiffy_plan_1.csv"]
+    #FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
+    Para = 4
+    FileName = ["jiffy_plan_1.csv"]
     Directory_Server = "172.31.28.29"
     client = JiffyClient(Directory_Server);
     fqs = create_connection(Directory_Server, FileName, client, Para)
