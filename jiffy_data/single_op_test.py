@@ -28,14 +28,11 @@ if __name__ == "__main__":
     Directory_Server = "172.31.28.29"
     client = JiffyClient(Directory_Server);
     fqs = create_connection(Directory_Server, FileName, client)
-    data = 'a' * 128 * 1024
-    iteration = 24000
+    data = 'a' * 10 * 1024
+    iteration = 200
     start =  time.time()
     for i in range(int(iteration / 4)):
-        #fqs[0].pipeline_put([data, data, data, data, data, data, data, data, data, data])
         fqs[0].pipeline_put([data, data, data, data])
-        #fqs[0].pipeline_put([data, data, data, data, data, data])
-        #fqs[0].pipeline_put([data, data, data])
     end1 = time.time()
     for i in range(iteration):
         fqs[0].get()

@@ -23,11 +23,11 @@ if __name__ == "__main__":
     #FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
     FileName = ["jiffy_plan_1.csv"]
     #FileName = ["32571881_plan.csv_norm", "32571893_plan.csv_norm", "32572121_plan.csv_norm", "492868_plan.csv_norm"]
-    HostName = ["ec2-54-69-30-100.us-west-2.compute.amazonaws.com"]
+    HostName = ["ec2-34-209-37-155.us-west-2.compute.amazonaws.com"]
 
     rs = create_connection(HostName)
-    data = "a" * 128 * 1024
-    iteration = 24000
+    data = "a" * 10 * 1024  * 1024
+    iteration = 70
 
     start = time.time()
     for i in range(iteration):

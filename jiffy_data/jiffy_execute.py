@@ -89,9 +89,14 @@ def execute(filename, fq, execution_plan):
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
+            time_to_sleep = int(cur_time) - int(prev_time)
             #time.sleep((int(cur_time) - int(prev_time)))
             #time.sleep(1)
+            start = time.time()
             run_command(command, fq, tenant_name)
+            end = time.time()
+            if(end - start < time_to_sleep):
+                time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 
