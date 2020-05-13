@@ -35,12 +35,12 @@ def run_command(cmds, rs, tenant_name):
         #        print("Put " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
                 size = size - datasize
                 idx = int(queryID) % nrs
-                rs[idx].set(tenant_name + "_" + queryID + "_" + str(cmd_id) + "_" + str(i), data)
+                rs[idx].set(tenant_name + "_" + queryID + "_" + str(original_size) + "_" + str(i), data)
                 #rs[idx].set(tenant_name + "_" + queryID + "_" + str(i), data)
             elif op == "remove":
                 idx = int(queryID) % nrs
         #        print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(size))
-                rs[idx].delete(tenant_name + "_" + queryID + "_" + str(cmd_id) + "_" + str(i))
+                rs[idx].delete(tenant_name + "_" + queryID + "_" + str(original_size) + "_" + str(i))
                 #rs[idx].delete(tenant_name + "_" + queryID + "_" + str(i))
     #for r in rs:
     #    r.execute()
@@ -60,8 +60,8 @@ def execute(filename, hostname, rs, execution_plan):
             start = time.time()
             run_command(command, rs, tenant_name)
             end = time.time()
-            if(end - start < time_to_sleep):
-                time.sleep(time_to_sleep - end + start)
+#            if(end - start < time_to_sleep):
+#                time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 
@@ -75,6 +75,7 @@ if __name__ == "__main__":
     #FileName = ["jiffy_plan_1.csv"]
     #FileName = ["32571881_plan.csv_norm", "32571893_plan.csv_norm", "32572121_plan.csv_norm", "492868_plan.csv_norm"]
     HostName = ["ec2-18-237-78-196.us-west-2.compute.amazonaws.com", "ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
+    #HostName = ["ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
 
     rs = create_connection(HostName)
     execution = {}
