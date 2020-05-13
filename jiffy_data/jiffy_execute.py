@@ -2,6 +2,7 @@ import csv
 import time
 from jiffy import JiffyClient
 from multiprocessing import Process
+import threading
 
 
 
@@ -82,6 +83,17 @@ def run_command(cmds, fq, tenant_name):
 
 
 def execute(filename, fq, execution_plan):
+        def log_size(filename_, fqclient):
+            t = threading.currentThread()
+            log_file = open(filename_ + "_log", "w")
+            while(getattr(t, "do_run", True)):
+                ret = fqclient.size()
+                print("Hey" + str(ret))
+                log_file.write(str(time.time()) + " " + str(ret) + "\n")
+                time.sleep(1)
+            log_file.close()
+        log_thread = threading.Thread(target=log_size, args=(filename, fq[0]))
+        log_thread.start()
         prev_time = execution_plan[0][0]
         prev_command = execution_plan[0][1:]
         tenant_name = filename.split('.')[0]
@@ -98,6 +110,8 @@ def execute(filename, fq, execution_plan):
             if(end - start < time_to_sleep):
                 time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
+        log_thread.do_run = False
+        log_thread.join()
 
 
 if __name__ == "__main__":
@@ -105,7 +119,7 @@ if __name__ == "__main__":
     FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
     Para = 1
     #FileName = ["jiffy_plan_1.csv"]
-    Directory_Server = "172.31.28.29"
+    Directory_Server = "172.31.17.100"
     client = JiffyClient(Directory_Server);
     fqs = create_connection(Directory_Server, FileName, client, Para)
     execution = {}

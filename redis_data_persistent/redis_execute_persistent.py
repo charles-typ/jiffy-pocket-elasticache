@@ -109,8 +109,8 @@ def execute(filename, hostname, rs, execution_plan, max_val, lock, max_size, bat
             start = time.time()
             run_command(command, rs, tenant_name, max_val, lock, max_size, batch_size, s3_list, s3_client, s3_bucket)
             end = time.time()
-            #if(end - start < time_to_sleep):
-            #    time.sleep(time_to_sleep - end + start)
+            if(end - start < time_to_sleep):
+                time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 

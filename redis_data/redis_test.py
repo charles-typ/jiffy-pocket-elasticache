@@ -60,8 +60,8 @@ def execute(filename, hostname, rs, execution_plan):
             start = time.time()
             run_command(command, rs, tenant_name)
             end = time.time()
-#            if(end - start < time_to_sleep):
-#                time.sleep(time_to_sleep - end + start)
+            if(end - start < time_to_sleep):
+                time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 
