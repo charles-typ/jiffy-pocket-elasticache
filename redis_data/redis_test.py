@@ -7,23 +7,18 @@ from multiprocessing import Process
 def create_connection(HostName):
     rs = []
     for hostname in HostName:
-        r1 = StrictRedis(host=hostname, port=6379, db=0).pipeline()
+        r1 = StrictRedis(host=hostname, port=6379, db=0)
         rs.append(r1)
     print("Connection all established")
     return rs
 
 def run_command(cmds, rs, tenant_name):
     nrs = len(rs)
-    batch_size = 10 * 1024  * 1024
-    size_count = 0
+    batch_size = 128 * 1024
     for cmd_id in range(len(cmds)):
         cmd = cmds[cmd_id]
         [op, queryID, size_str] = cmd.split(":")
-        if(queryID.split("_")[0] != "688"):
-            continue
         size = int(size_str)
-        if(op == "put"):
-            size_count = size_count + size
         original_size = size
         #if(size > max_val):
         #    max_val = size
@@ -39,17 +34,16 @@ def run_command(cmds, rs, tenant_name):
                 data = 'a' * datasize
         #        print("Put " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
                 size = size - datasize
-                idx = int(queryID.split("_")[0]) % nrs
-                #rs[idx].set(tenant_name + "_" + queryID + "_" + str(cmd_id) + "_" + str(i), data)
-                rs[idx].set(tenant_name + "_" + queryID + "_" + str(i), data)
+                idx = int(queryID) % nrs
+                rs[idx].set(tenant_name + "_" + queryID + "_" + str(cmd_id) + "_" + str(i), data)
+                #rs[idx].set(tenant_name + "_" + queryID + "_" + str(i), data)
             elif op == "remove":
-                idx = int(queryID.split("_")[0]) % nrs
+                idx = int(queryID) % nrs
         #        print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(size))
-                #rs[idx].delete(tenant_name + "_" + queryID + "_" + str(cmd_id) + "_" + str(i))
-                rs[idx].delete(tenant_name + "_" + queryID + "_" + str(i))
-    for r in rs:
-        r.execute()
-    print("Size count " + str(size_count))
+                rs[idx].delete(tenant_name + "_" + queryID + "_" + str(cmd_id) + "_" + str(i))
+                #rs[idx].delete(tenant_name + "_" + queryID + "_" + str(i))
+    #for r in rs:
+    #    r.execute()
 
 
 
@@ -62,17 +56,21 @@ def execute(filename, hostname, rs, execution_plan):
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
-            #time.sleep((int(cur_time) - int(prev_time)))
+            time_to_sleep = int(cur_time) - int(prev_time)
+            start = time.time()
             run_command(command, rs, tenant_name)
+            end = time.time()
+            if(end - start < time_to_sleep):
+                time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 
 if __name__ == "__main__":
 
     #FileName = ["new_32571881_plan.csv_norm", "new_32571893_plan.csv_norm", "new_32572121_plan.csv_norm", "new_492868_plan.csv_norm"]
-    #FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
+    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
     #FileName = ["redis_full_plan_1", "redis_full_plan_2", "redis_full_plan_3", "redis_full_plan_4"]
-    FileName = ["redis_full_plan_1"]
+    #FileName = ["redis_full_plan_1"]
     #FileName = ["jiffy_plan_1.csv"]
     #FileName = ["jiffy_plan_1.csv"]
     #FileName = ["32571881_plan.csv_norm", "32571893_plan.csv_norm", "32572121_plan.csv_norm", "492868_plan.csv_norm"]

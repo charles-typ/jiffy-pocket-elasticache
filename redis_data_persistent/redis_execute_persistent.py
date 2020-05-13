@@ -9,7 +9,7 @@ def create_connection(HostName, S3BucketName):
     rs = []
     s3client = []
     for hostname in HostName:
-        r1 = StrictRedis(host=hostname, port=6379, db=0).pipeline()
+        r1 = StrictRedis(host=hostname, port=6379, db=0)
         rs.append(r1)
     for i in S3BucketName:
         s3 = boto3.client('s3', 'us-east-2')
@@ -20,7 +20,8 @@ def create_connection(HostName, S3BucketName):
 def run_command(cmds, rs, tenant_name, max_val, lock, max_size, batch_size, s3_list, s3_client, bucketName):
     nrs = len(rs)
     redis_flag = False
-    for cmd in cmds:
+    for cmd_id in range(len(cmds)):
+        cmd = cmds[cmd_id]
         [op, queryID, size_str] = cmd.split(":")
         size = int(size_str)
         #if(size > max_val):
@@ -38,7 +39,7 @@ def run_command(cmds, rs, tenant_name, max_val, lock, max_size, batch_size, s3_l
                     redis_flag_cur = True
                     max_val.value = max_val.value + size
         for i in range(chunks):
-            key_name = tenant_name + "_" + queryID + "_" + str(i)
+            key_name = tenant_name + "_" + queryID + "_" + str(cmd_id) + "_" + str(i)
             if op == "put":
                 datasize = min(size, batch_size)
                 data = 'a' * datasize
@@ -68,9 +69,6 @@ def run_command(cmds, rs, tenant_name, max_val, lock, max_size, batch_size, s3_l
             with lock:
                 max_val.value = max_val.value - size
 
-    if redis_flag is True:
-        for r in rs:
-            r.execute()
 
 
 
@@ -84,8 +82,12 @@ def execute(filename, hostname, rs, execution_plan, max_val, lock, max_size, bat
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
-            time.sleep((int(cur_time) - int(prev_time)))
+            time_to_sleep = int(cur_time) - int(prev_time)
+            start = time.time()
             run_command(command, rs, tenant_name, max_val, lock, max_size, batch_size, s3_list, s3_client, s3_bucket)
+            end = time.time()
+            if(end - start < time_to_sleep):
+                time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 
@@ -109,7 +111,7 @@ if __name__ == "__main__":
     lock = Lock()
     ratio = 1
     max_size = 3.4 * 1024 * 1024 * ratio # FIXME fix this max_size
-    batch_size = 1024 * 1024
+    batch_size = 128 * 1024
 
     rs, s3client = create_connection(HostName, S3BucketName)
     execution = {}
@@ -136,8 +138,12 @@ if __name__ == "__main__":
             servers = rs[7:10]
         p = Process(target=execute, args=(FileName[i], HostName, servers, execution[FileName[i]], max_val, lock, max_size, batch_size, s3client[i], S3BucketName[i]))
         Pool.append(p)
+    start = time.time()
+    print("Start execution")
     for proc in Pool:
         proc.start()
     for proc in Pool:
         proc.join()
-
+    end = time.time()
+    print("Exection takes time")
+    print(end - start)

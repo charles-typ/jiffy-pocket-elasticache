@@ -5,12 +5,15 @@ from multiprocessing import Process
 
 
 
-def create_connection(hostname, FileName, client):
+def create_connection(hostname, FileName, client, Para):
     queueclient = []
     for filename in FileName:
         name_prefix = filename.split('.')[0]
-        qc = client.open_or_create_queue("/" + name_prefix, '/tmp' + name_prefix)
-        queueclient.append(qc)
+        paraqueue = []
+        for i in range(Para):
+            qc = client.open_or_create_queue("/" + name_prefix, '/tmp' + name_prefix)
+            paraqueue.append(qc)
+        queueclient.append(paraqueue)
     print("Connection all established")
     return queueclient
 
@@ -22,25 +25,58 @@ def remove_connection(hostname, FileName, client):
     return
 
 def run_command(cmds, fq, tenant_name):
+    def write_func(fqclient, data, tail, iteration):
+        for i in range(iteration):
+            fqclient.put(data)
+        if tail > 0:
+            data = "a" * tail
+            fqclient.put(data)
+    def delete_func(fqclient, iteration):
+        for i in range(iteration):
+            fqclient.get()
+    batch_size = 128 * 1024
     for cmd in cmds:
         [op, queryID, size_str] = cmd.split(":")
         size = int(size_str)
-        if(size > 1024 * 1024):
-            chunks = int(size / (1024 * 1024)) + 1
-            if size % (1024 * 1024) == 0:
+        if(size > batch_size):
+            chunks = int(size / batch_size) + 1
+            flag = 1
+            if size % (batch_size) == 0:
                 chunks = chunks - 1
+                flag = 2
         else:
+            flag = 3
             chunks = 1
-        for i in range(chunks):
-            if op == "put":
-                datasize = min(size, 1024 * 1024)
-                data = 'a' * datasize
-       #         print("Put " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
-                size = size - datasize
-                fq.put(data)
-            elif op == "remove":
-       #         print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(size))
-                fq.get()
+        data = 'a' * batch_size
+        if(op == "put"):
+            if(flag == 1):
+                for i in range(0, chunks, 4):
+                    args = []
+                    for k in range(4):
+                        if(i + k < chunks - 1):
+                            args.append(data)
+                        elif(i + k == chunks - 1):
+                            args.append("a" * ( size % batch_size))
+                        else:
+                            break
+                    fq[0].pipeline_put(args)
+
+            if(flag == 2):
+                for i in range(0, chunks, 4):
+                    args = []
+                    for k in range(4):
+                        if(i + k < chunks):
+                            args.append(data)
+                        else:
+                            break
+                    fq[0].pipeline_put(args)
+
+            if(flag == 3):
+                fq[0].pipeline_put(["a" * size])
+
+        elif op == "remove":
+            for i in range(chunks):
+                fq[0].get()
 
 
 
@@ -53,18 +89,25 @@ def execute(filename, fq, execution_plan):
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
+            time_to_sleep = int(cur_time) - int(prev_time)
             #time.sleep((int(cur_time) - int(prev_time)))
+            #time.sleep(1)
+            start = time.time()
             run_command(command, fq, tenant_name)
+            end = time.time()
+            if(end - start < time_to_sleep):
+                time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 
 if __name__ == "__main__":
 
-#    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
-    FileName = ["jiffy_plan_1.csv"]
-    Directory_Server = "127.0.0.1"
+    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
+    Para = 1
+    #FileName = ["jiffy_plan_1.csv"]
+    Directory_Server = "172.31.28.29"
     client = JiffyClient(Directory_Server);
-    fqs = create_connection(Directory_Server, FileName, client)
+    fqs = create_connection(Directory_Server, FileName, client, Para)
     execution = {}
     for filename in FileName:
         with open(filename) as f:
@@ -81,10 +124,15 @@ if __name__ == "__main__":
     for i in range(len(FileName)):
         p = Process(target=execute, args=(FileName[i], fqs[i], execution[FileName[i]]))
         Pool.append(p)
+    start = time.time()
     for proc in Pool:
         proc.start()
     for proc in Pool:
         proc.join()
+    end = time.time()
+    print("Execution takes time")
+    print(end -  start)
+
     remove_connection(Directory_Server, FileName, client)
 
 
