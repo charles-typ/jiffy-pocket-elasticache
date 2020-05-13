@@ -14,7 +14,7 @@ def create_connection(HostName):
 
 def run_command(cmds, rs, tenant_name):
     nrs = len(rs)
-    batch_size = 128 * 1024
+    batch_size = 1024 * 1024
     for cmd in cmds:
         [op, queryID, size_str] = cmd.split(":")
         size = int(size_str)
