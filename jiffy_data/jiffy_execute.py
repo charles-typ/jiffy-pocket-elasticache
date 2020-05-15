@@ -88,7 +88,6 @@ def execute(filename, fq, execution_plan):
             log_file = open(filename_ + "_log", "w")
             while(getattr(t, "do_run", True)):
                 ret = fqclient.size()
-                print("Hey" + str(ret))
                 log_file.write(str(time.time()) + " " + str(ret) + "\n")
                 time.sleep(1)
             log_file.close()

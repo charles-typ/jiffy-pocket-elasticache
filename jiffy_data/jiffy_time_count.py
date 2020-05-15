@@ -14,13 +14,15 @@ def execute(filename, execution_plan):
         cur_time = execution_plan[i][0]
         command = execution_plan[i][1:]
         #total =  total + (int(cur_time) - int(prev_time))
-        total = total + 1
-        prev_time = cur_time
+        for cmd in command:
+            op, ID, size = cmd.split(":")
+            if(op == "put"):
+                total = total + int(size)
 
 if __name__ == "__main__":
     global total
-#    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
-    FileName = ["jiffy_plan_1.csv"]
+    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
+#    FileName = ["jiffy_plan_1.csv"]
     execution = {}
     for filename in FileName:
         with open(filename) as f:
