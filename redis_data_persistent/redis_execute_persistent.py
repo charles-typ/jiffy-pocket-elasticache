@@ -119,20 +119,20 @@ if __name__ == "__main__":
     #FileName = ["redis_p_1.csv", "redis_p_2.csv", "redis_p_3.csv", "redis_p_4.csv"]
     #FileName = ["redis_p_1.csv"]
     FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
-    HostName = ["ec2-18-237-78-196.us-west-2.compute.amazonaws.com", "ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
-    #HostName = ["ec2-54-149-159-4.us-west-2.compute.amazonaws.com",
-    #"ec2-54-245-193-27.us-west-2.compute.amazonaws.com",
-    #"ec2-34-221-168-60.us-west-2.compute.amazonaws.com",
-    #"ec2-54-201-173-208.us-west-2.compute.amazonaws.com",
-    #"ec2-34-221-179-53.us-west-2.compute.amazonaws.com",
-    #"ec2-54-190-195-23.us-west-2.compute.amazonaws.com",
-    #"ec2-35-160-108-71.us-west-2.compute.amazonaws.com",
-    #"ec2-34-216-21-74.us-west-2.compute.amazonaws.com",
-    #"ec2-34-222-48-204.us-west-2.compute.amazonaws.com",
-    #"ec2-54-214-109-51.us-west-2.compute.amazonaws.com"]
+    #HostName = ["ec2-18-237-78-196.us-west-2.compute.amazonaws.com", "ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
+    HostName = ["ec2-34-216-61-41.us-west-2.compute.amazonaws.com",
+               "ec2-54-200-251-133.us-west-2.compute.amazonaws.com",
+               "ec2-52-34-187-231.us-west-2.compute.amazonaws.com",
+               "ec2-52-27-238-211.us-west-2.compute.amazonaws.com",
+               "ec2-54-184-125-7.us-west-2.compute.amazonaws.com",
+               "ec2-34-219-16-124.us-west-2.compute.amazonaws.com",
+               "ec2-52-35-251-62.us-west-2.compute.amazonaws.com",
+               "ec2-52-43-242-95.us-west-2.compute.amazonaws.com",
+               "ec2-52-34-194-170.us-west-2.compute.amazonaws.com",
+               "ec2-54-202-113-161.us-west-2.compute.amazonaws.com"]
     S3BucketName = ["redis-p-1", "redis-p-2", "redis-p-3", "redis-p-4"]
     ratio = float(sys.argv[1])
-    total_size = 3.4 * 1024 * 1024 * 1024
+    total_size = 3.15 * 1024 * 1024 * 1024
     max_val = Value('i', 0)
     lock = Lock()
     max_size = int(total_size * ratio) # FIXME fix this max_size
@@ -161,7 +161,7 @@ if __name__ == "__main__":
             servers = rs[4:7]
         elif i == 3:
             servers = rs[7:10]
-        p = Process(target=execute, args=(FileName[i], HostName, rs, execution[FileName[i]], max_val, lock, max_size, batch_size, s3client[i], S3BucketName[i]))
+        p = Process(target=execute, args=(FileName[i], HostName, servers, execution[FileName[i]], max_val, lock, max_size, batch_size, s3client[i], S3BucketName[i]))
         Pool.append(p)
     start = time.time()
     print("Start execution")

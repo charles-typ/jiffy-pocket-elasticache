@@ -74,8 +74,17 @@ if __name__ == "__main__":
     #FileName = ["jiffy_plan_1.csv"]
     #FileName = ["jiffy_plan_1.csv"]
     #FileName = ["32571881_plan.csv_norm", "32571893_plan.csv_norm", "32572121_plan.csv_norm", "492868_plan.csv_norm"]
-    HostName = ["ec2-18-237-78-196.us-west-2.compute.amazonaws.com", "ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
     #HostName = ["ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
+    HostName = ["ec2-34-216-61-41.us-west-2.compute.amazonaws.com",
+			"ec2-54-200-251-133.us-west-2.compute.amazonaws.com",
+			"ec2-52-34-187-231.us-west-2.compute.amazonaws.com",
+			"ec2-52-27-238-211.us-west-2.compute.amazonaws.com",
+			"ec2-54-184-125-7.us-west-2.compute.amazonaws.com",
+			"ec2-34-219-16-124.us-west-2.compute.amazonaws.com",
+			"ec2-52-35-251-62.us-west-2.compute.amazonaws.com",
+			"ec2-52-43-242-95.us-west-2.compute.amazonaws.com",
+			"ec2-52-34-194-170.us-west-2.compute.amazonaws.com",
+			"ec2-54-202-113-161.us-west-2.compute.amazonaws.com"]
 
     rs = create_connection(HostName)
     execution = {}
@@ -92,7 +101,15 @@ if __name__ == "__main__":
 
     Pool = []
     for i in range(len(FileName)):
-        p = Process(target=execute, args=(FileName[i], HostName, rs, execution[FileName[i]]))
+        if i == 0:
+            servers = rs[0:2]
+        elif i == 1:
+            servers = rs[2:4]
+        elif i == 2:
+            servers = rs[4:7]
+        elif i == 3:
+            servers = rs[7:10]
+        p = Process(target=execute, args=(FileName[i], HostName, servers, execution[FileName[i]]))
         Pool.append(p)
     start = time.time()
     print("Start execution")
