@@ -26,7 +26,7 @@ def remove_connection(pocketID):
     print("Connection all closed")
     return
 
-def run_command(cmds, jobid, nvmejobid, tenant_name, namenode, batch_size, max_val, lock, max_size, nvme_list):
+def run_command(cmds, jobid, nvmejobid, tenant_name, namenode, batch_size, max_size, nvme_list, data_size):
     for cmd in cmds:
         [op, queryID, size_str] = cmd.split(":")
         size = int(size_str)
@@ -38,10 +38,9 @@ def run_command(cmds, jobid, nvmejobid, tenant_name, namenode, batch_size, max_v
             chunks = 1
         dram_flag = False
         if op == "put":
-            with lock:
-                if max_val.value + size < max_size:
-                    dram_flag = True
-                    max_val.value = max_val.value + size
+            if data_size + size < max_size:
+                dram_flag = True
+                data_size = data_size + size
         for i in range(chunks):
             key = queryID + "_" + str(i)
             if op == "put":
@@ -64,22 +63,22 @@ def run_command(cmds, jobid, nvmejobid, tenant_name, namenode, batch_size, max_v
                     dram_flag = True
                     pocket.delete(namenode, key, jobid)
         if op == "remove" and dram_flag:
-            with lock:
-                max_val.value = max_val.value - size
+            data_size = data_size - size
 
        #         print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
 
 def execute(filename, jobID, nvmejobID, execution_plan, namenode, batch_size, max_size):
         nvme_list = []
+        data_size = 0
         prev_time = execution_plan[0][0]
         prev_command = execution_plan[0][1:]
         tenant_name = filename.split('.')[0]
-        run_command(prev_command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_size, nvme_list)
+        run_command(prev_command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_size, nvme_list, data_size)
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
             time.sleep((int(cur_time) - int(prev_time)))
-            run_command(command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_size, nvme_list)
+            run_command(command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_size, nvme_list, data_size)
             prev_time = cur_time
 
 if __name__ == "__main__":
@@ -89,11 +88,10 @@ if __name__ == "__main__":
     batch_size = 128 * 1024
     #max_val = Value('i', 0)
     #lock = Lock()
-    ratio = 1
     MaxStorage = {"1": 2, "2": 1.1, "3": 0.9, "4":0.1}
     #max_size = 3.4 * 1024 * 1024 * 1024 * ratio #FIXME fix this max_size
 
-    jobIDs, nvmejobIDs, namenode = create_connection(HostName, FileName, ratio, MaxStorage)
+    jobIDs, nvmejobIDs, namenode = create_connection(HostName, FileName, ratio, MaxStorage * ratio)
 
     execution = {}
     for filename in FileName:
