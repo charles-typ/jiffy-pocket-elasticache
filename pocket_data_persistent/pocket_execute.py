@@ -1,17 +1,19 @@
 import csv
 import time
-from multiprocessing import Process, Value, Lock
+import sys
+#from multiprocessing import Process, Value, Lock
+from multiprocessing import Proces
 import pocket
 
-def create_connection(hostname, FileName):
+def create_connection(hostname, FileName, ratio, MaxStorage):
     pocketjobID = []
     pocketjobIDnvme = []
     pocket_namenode = pocket.connect(hostname, 9070)
-    MaxStorage = {"1": 1, "2": 1, "3": 0.1, "4":0.01}
+    MaxStorage = {"1": 2, "2": 1.1, "3": 0.9, "4":0.1}
     for filename in FileName:
         name_prefix = filename.split('.')[0]
         fileID = name_prefix.split('_')[-1]
-        jobid = pocket.register_job(name_prefix, capacityGB=MaxStorage[fileID]) # TODO Change this capacityGB
+        jobid = pocket.register_job(name_prefix, capacityGB=MaxStorage[fileID] * ratio) # TODO Change this capacityGB
         nvmejobid = pocket.register_job(name_prefix + "_nvme", capacityGB=MaxStorage[fileID])
         pocketjobID.append(jobid)
         pocketjobIDnvme.append(nvmejobid)
@@ -67,29 +69,31 @@ def run_command(cmds, jobid, nvmejobid, tenant_name, namenode, batch_size, max_v
 
        #         print("Remove " + tenant_name + "_" + queryID + "_" + str(i) + " " + str(datasize))
 
-def execute(filename, jobID, nvmejobID, execution_plan, namenode, batch_size, max_val, lock, max_size):
+def execute(filename, jobID, nvmejobID, execution_plan, namenode, batch_size, max_size):
         nvme_list = []
         prev_time = execution_plan[0][0]
         prev_command = execution_plan[0][1:]
         tenant_name = filename.split('.')[0]
-        run_command(prev_command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_val, lock, max_size, nvme_list)
+        run_command(prev_command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_size, nvme_list)
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
             time.sleep((int(cur_time) - int(prev_time)))
-            run_command(command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_val, lock, max_size, nvme_list)
+            run_command(command, jobID, nvmejobID, tenant_name, namenode, batch_size, max_size, nvme_list)
             prev_time = cur_time
 
 if __name__ == "__main__":
     FileName = ["pocket_plan_1.csv", "pocket_plan_2.csv", "pocket_plan_3.csv", "pocket_plan_4.csv"]
     HostName = "10.1.0.10"
-    batch_size = 1024 * 1024
-    max_val = Value('i', 0)
-    lock = Lock()
+    ratio = float(sys.argv[1])
+    batch_size = 128 * 1024
+    #max_val = Value('i', 0)
+    #lock = Lock()
     ratio = 1
-    max_size = 3.4 * 1024 * 1024 * 1024 * ratio #FIXME fix this max_size
+    MaxStorage = {"1": 2, "2": 1.1, "3": 0.9, "4":0.1}
+    #max_size = 3.4 * 1024 * 1024 * 1024 * ratio #FIXME fix this max_size
 
-    jobIDs, nvmejobIDs, namenode = create_connection(HostName, FileName)
+    jobIDs, nvmejobIDs, namenode = create_connection(HostName, FileName, ratio, MaxStorage)
 
     execution = {}
     for filename in FileName:
@@ -105,7 +109,7 @@ if __name__ == "__main__":
 
     Pool = []
     for i in range(len(FileName)):
-        p = Process(target=execute, args=(FileName[i], jobIDs[i], nvmejobIDs[i], execution[FileName[i]], namenode, batch_size, max_val, lock, max_size))
+        p = Process(target=execute, args=(FileName[i], jobIDs[i], nvmejobIDs[i], execution[FileName[i]], namenode, batch_size, max_size))
         Pool.append(p)
     start = time.time()
     for proc in Pool:
