@@ -41,24 +41,25 @@ def run_command(cmds, rs, tenant_name, max_size, batch_size, s3_list, s3_client,
         if op == "put":
             #with max_val.get_lock():
             max_val = q.get()
-            log_file.write(tenant_name + " " + str(max_val) + " MAX\n")
+            log_file.write(str(time.time()) + tenant_name + " " + str(max_val) + " MAX\n")
             if max_val + original_size < max_size:
                 #print("Max value size " + str(max_val.value) )
                 #print("Max size to reach " + str(max_size))
                 #print("increasing " + str(original_size))
                 redis_flag_cur = True
                 max_val = max_val + original_size
-                log_file.write(tenant_name + " " + str(original_size) + " " + queryID + " MEMORY\n")
+                log_file.write(str(time.time()) + tenant_name + " " + str(original_size) + " " + queryID + " WRITE MEM\n")
             q.put(max_val)
             if(redis_flag_cur == False):
                # s3_list.append(tenant_name + "_" + queryID)
-                log_file.write(tenant_name + " " + str(original_size) + " " + queryID + " PERSISTENT\n")
                 s3_list.append(tenant_name + "_" + queryID + "_" + str(original_size))
+                log_file.write(str(time.time()) + tenant_name + " " + str(original_size) + " " + queryID + " WRITE S3\n")
         remove_from_s3 = False
         if op == "remove" and tenant_name + "_" + queryID + "_" + str(original_size)  in s3_list:
             remove_from_s3 = True
             #s3_list.remove(tenant_name + "_" + queryID)
             s3_list.remove(tenant_name + "_" + queryID + "_" + str(original_size))
+            log_file.write(str(time.time()) + tenant_name + " " + str(original_size) + " " + queryID + " DELETE S3\n")
 
         for i in range(chunks):
             #key_name = tenant_name + "_" + queryID + "_" + str(i)
@@ -70,13 +71,13 @@ def run_command(cmds, rs, tenant_name, max_size, batch_size, s3_list, s3_client,
                 size = size - datasize
                 idx = int(queryID) % nrs
                 if redis_flag_cur:
-                    rs[idx].set(key_name, data)
+            #        rs[idx].set(key_name, data)
                     #print("Write to redis " + key_name)
                     redis_flag = True
-                else:
+            #    else:
                     #print("Write to s3 " + key_name)
                     #s3_list.append(key_name)
-                    s3_client.put_object(Bucket=bucketName, Key=key_name, Body=data.encode('utf-8'))
+            #        s3_client.put_object(Bucket=bucketName, Key=key_name, Body=data.encode('utf-8'))
             elif op == "remove":
                 #datasize = min(size, batch_size)
                 #data = 'a' * datasize
@@ -84,21 +85,22 @@ def run_command(cmds, rs, tenant_name, max_size, batch_size, s3_list, s3_client,
                 idx = int(queryID) % nrs
         #        #print("Remove " + key_name + " " + str(size))
                 if remove_from_s3:
-                    s3_client.delete_object(Bucket=bucketName, Key=key_name)
+                    nops = 1
+            #        s3_client.delete_object(Bucket=bucketName, Key=key_name)
                     #print("Removing from s3 " + key_name)
                     #s3_list.remove(key_name)
                 else:
                     redis_flag = True
                     redis_flag_cur = True
-                    rs[idx].delete(key_name)
+                    #rs[idx].delete(key_name)
 
                     #print("Removing from redis " + key_name)
         if op == "remove" and not remove_from_s3:
 #            with max_val.get_lock():
             max_val = q.get()
             max_val = max_val - original_size
-            #log_file.write(tenant_name + " " + str(original_size) + " " + queryID + " DELETE\n")
-            #print("Decreasing " + str(original_size))
+            log_file.write(str(time.time()) + tenant_name + " " + str(original_size) + " " + queryID + " DELETE MEM\n")
+                #print("Decreasing " + str(original_size))
             q.put(max_val)
 
 
@@ -113,8 +115,7 @@ def execute(filename, hostname, rs, execution_plan, max_size, batch_size, s3_cli
         tenant_name = filename.split('.')[0]
         run_command(prev_command, rs, tenant_name, max_size, batch_size, s3_list, s3_client, s3_bucket, log_file, q)
         for i in range(1, len(execution_plan)):
-            print(filename + str(i))
-            #print("*******************************************8                          Writing one command " + str(i) + " " + filename)
+            print("*******************************************8                          Writing one command " + str(i) + " " + filename)
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
             #time_to_sleep = int(cur_time) - int(prev_time)
@@ -131,20 +132,19 @@ if __name__ == "__main__":
 
     #FileName = ["redis_p_1.csv", "redis_p_2.csv", "redis_p_3.csv", "redis_p_4.csv"]
     #FileName = ["redis_p_1.csv"]
-    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
-   # FileName = ["jiffy_plan_1.csv"]
+    #FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
+    FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv"]
     #HostName = ["ec2-18-237-78-196.us-west-2.compute.amazonaws.com", "ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
-    HostName = ["ec2-34-217-12-184.us-west-2.compute.amazonaws.com",
-    "ec2-52-89-116-219.us-west-2.compute.amazonaws.com",
-    "ec2-54-202-68-150.us-west-2.compute.amazonaws.com",
-    "ec2-54-200-133-139.us-west-2.compute.amazonaws.com",
-    "ec2-34-219-116-63.us-west-2.compute.amazonaws.com",
-    "ec2-18-236-153-150.us-west-2.compute.amazonaws.com",
-    "ec2-52-12-64-131.us-west-2.compute.amazonaws.com",
-    "ec2-52-35-94-85.us-west-2.compute.amazonaws.com",
-    "ec2-54-213-240-113.us-west-2.compute.amazonaws.com",
-    "ec2-34-212-25-158.us-west-2.compute.amazonaws.com"]
-#    "ec2-52-10-250-65.us-west-2.compute.amazonaws.com"]
+    HostName = ["ec2-52-24-220-181.us-west-2.compute.amazonaws.com",
+                  "ec2-54-191-224-102.us-west-2.compute.amazonaws.com",
+                  "ec2-54-212-229-49.us-west-2.compute.amazonaws.com",
+                  "ec2-52-38-9-169.us-west-2.compute.amazonaws.com",
+                  "ec2-34-214-106-253.us-west-2.compute.amazonaws.com",
+                  "ec2-34-222-251-186.us-west-2.compute.amazonaws.com",
+                  "ec2-34-220-6-79.us-west-2.compute.amazonaws.com",
+                  "ec2-34-216-49-7.us-west-2.compute.amazonaws.com",
+                  "ec2-34-222-90-78.us-west-2.compute.amazonaws.com",
+                  "ec2-52-40-138-200.us-west-2.compute.amazonaws.com"]
 
 #    HostName = ["ec2-34-216-61-41.us-west-2.compute.amazonaws.com",
 #               "ec2-54-200-251-133.us-west-2.compute.amazonaws.com",
@@ -158,7 +158,7 @@ if __name__ == "__main__":
 #               "ec2-54-202-113-161.us-west-2.compute.amazonaws.com"]
     S3BucketName = ["redis-p-1", "redis-p-2", "redis-p-3", "redis-p-4"]
     ratio = float(sys.argv[1])
-    total_size = 3.119 * 1024 * 1024 * 1024
+    total_size = 3.13 * 1024 * 1024 * 1024
     lock = Lock()
     max_size = int(total_size * ratio) # FIXME fix this max_size
     batch_size = 128 * 1024
