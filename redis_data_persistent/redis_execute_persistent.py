@@ -107,6 +107,7 @@ def run_command(cmds, rs, tenant_name, max_size, batch_size, s3_list, s3_client,
 
 def execute(filename, hostname, rs, execution_plan, max_size, batch_size, s3_client, s3_bucket, q):
         log_file = open(filename + "_log", "w")
+        start_job = time.time()
         s3_list = []
         prev_time = execution_plan[0][0]
         prev_command = execution_plan[0][1:]
@@ -124,6 +125,8 @@ def execute(filename, hostname, rs, execution_plan, max_size, batch_size, s3_cli
             #if(end - start < time_to_sleep):
             #    time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
+        end_job = time.time()
+        print(filename + " " + str(end_job - start_job))
         log_file.close()
 
 
