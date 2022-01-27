@@ -1,0 +1,1000 @@
+ 1010  python redis_test.py 
+ 1011  BBI-173
+ 1012  python redis_test.py 
+ 1013  vi redis_test.py 
+ 1014  python redis_test.py 
+ 1015  vi redis_test.py 
+ 1016  python redis_test.py 
+ 1017  vi redis_test.py 
+ 1018  python redis_test.py 
+ 1019  vi redis_test.py 
+ 1020  python redis_test.py 
+ 1021  python redis_test.py  > hey
+ 1022  vi hey 
+ 1023  vi redis_test.py 
+ 1024  python redis_test.py  > hey
+ 1025  vi redis_test.py 
+ 1026  python redis_test.py  > hey
+ 1027  vi redis_test.py 
+ 1028  python redis_test.py 
+ 1029  python redis_test.py  > hey
+ 1030  vi hey 
+ 1031  pgrep vim
+ 1032  clear
+ 1033  ls
+ 1034  tmux attach
+ 1035  ls
+ 1036  tmux attach
+ 1037  tmux attach
+ 1038  pgrep python
+ 1039  pgrep tmux
+ 1040  top
+ 1041  pkill -9 tmux
+ 1042  ls
+ 1043  tmux ls
+ 1044  cd jiffy-pocket-elasticache/
+ 1045  tmux
+ 1046  cd
+ 1047  cd jiffyf/h
+ 1048  cd ..
+ 1049  cd
+ 1050  cd jiffy/build/
+ 1051  ls
+ 1052  cd ..
+ 1053  cd hey/
+ 1054  ls
+ 1055  cp ../conf/jiffy.conf ../conf/jiffy2.conf 
+ 1056  vi ../conf/jiffy2.conf 
+ 1057  ./directory/directoryd --conf=../conf/jiffy2.conf
+ 1058  vi ../conf/jiffy2.conf 
+ 1059  ./directory/directoryd --conf=../conf/jiffy2.conf
+ 1060  git status
+ 1061  git diff
+ 1062  git branch
+ 1063  git add ../pyjiffy/jiffy/storage/queue.py
+ 1064  git commit -m "Add size function"
+ 1065  git push origin 2020_may
+ 1066  exit
+ 1067  cd
+ 1068  cd jiffy
+ 1069  cd hey/
+ 1070  ./storage/storaged --conf=../conf/jiffy2.conf
+ 1071  vi ../conf/jiffy2.conf 
+ 1072  ./storage/storaged --conf=../conf/jiffy2.conf
+ 1073  vi ../conf/jiffy2.conf 
+ 1074  ./storage/storaged --conf=../conf/jiffy2.conf
+ 1075  vi ../conf/jiffy2.conf 
+ 1076  ./storage/storaged --conf=../conf/jiffy2.conf
+ 1077  vi ../conf/jiffy2.conf 
+ 1078  ./storage/storaged --conf=../conf/jiffy2.conf
+ 1079  vi ../conf/jiffy2.conf 
+ 1080  ./storage/storaged --conf=../conf/jiffy2.conf
+ 1081  exit
+ 1082  cd redis_data_persistent/
+ 1083  ls
+ 1084  vi redis_execute_persistent.py 
+ 1085  python redis_execute_persistent.py 
+ 1086  vi redis_execute_persistent.py 
+ 1087  python redis_execute_persistent.py 
+ 1088  vi redis_execute_persistent.py 
+ 1089  python redis_execute_persistent.py  > test 
+ 1090  vi redis_execute_persistent.py 
+ 1091  python redis_execute_persistent.py  > test 
+ 1092  vi redis_execute_persistent.py 
+ 1093  python redis_execute_persistent.py  > test 
+ 1094  vi redis_execute_persistent.py 
+ 1095  python redis_execute_persistent.py  > test 
+ 1096  vi redis_execute_persistent.py 
+ 1097  vi jiffy_data
+ 1098  ls
+ 1099  vi redis_p_1.csv 
+ 1100  vi jiffy_data
+ 1101  vi redis_p_1.csv 
+ 1102  vi redis_execute_persistent.py 
+ 1103  python redis_execute_persistent.py  > test 
+ 1104  vi redis_execute_persistent.py 
+ 1105  python redis_execute_persistent.py  > test 
+ 1106  ls
+ 1107  cp ../jiffy_data/mimic.py ./
+ 1108  vi mimic.py 
+ 1109  python mimic.py 
+ 1110  vi mimic.py 
+ 1111  pip install queue
+ 1112  export LC_ALL=C
+ 1113  pip install queue
+ 1114  vi mimic.py 
+ 1115  python mimic.py 
+ 1116  vi mimic.py 
+ 1117  python mimic.py 
+ 1118  vi mimic.py 
+ 1119  ls
+ 1120  vi mimic.py 
+ 1121  python mimic.py 
+ 1122  vi mimic.py 
+ 1123  ls
+ 1124  vi redis_execute_persistent.py 
+ 1125  python mimic.py 
+ 1126  python redis_execute_persistent.py  > test 
+ 1127  vi redis_execute_persistent.py 
+ 1128  python redis_execute_persistent.py  > test 
+ 1129  vi redis_execute_persistent.py 
+ 1130  python redis_execute_persistent.py  > test 
+ 1131  vi redis_execute_persistent.py 
+ 1132  python redis_execute_persistent.py  > test 
+ 1133  python redis_execute_persistent.py 
+ 1134  vi redis_execute_persistent.py 
+ 1135  python redis_execute_persistent.py 
+ 1136  vi redis_execute_persistent.py 
+ 1137  python redis_execute_persistent.py 
+ 1138  vi redis_execute_persistent.py 
+ 1139  python redis_execute_persistent.py 
+ 1140  vi redis_execute_persistent.py 
+ 1141  vi redis_p_1.csv 
+ 1142  vi ../redis_data
+ 1143  vi ../redis_data/redis_test.py 
+ 1144  vi ../redis_data/new_32571893_plan.csv_norm
+ 1145  vi ../redis_data/new_32571881_plan.csv_norm
+ 1146  ls
+ 1147  cd
+ 1148  cd jiffy-pocket-elasticache/
+ 1149  git status
+ 1150  git diff
+ 1151  ls
+ 1152  vi  redis_data/redis_execute.py 
+ 1153  vi redis_data/redis_test.py 
+ 1154  cd redis_data
+ 1155  vi jiffy_plan_1.csv 
+ 1156  ls
+ 1157  cd ..
+ 1158  cd redis_data_persistent/
+ 1159  ls
+ 1160  vi redis_execute_persistent.py 
+ 1161  python redis_execute_persistent.py 0.9
+ 1162  cp ../redis_data/jiffy_plan_* ./
+ 1163  python redis_execute_persistent.py 0.9
+ 1164  vi redis_execute_persistent.py 
+ 1165  python redis_execute_persistent.py 0.9
+ 1166  vi redis_execute_persistent.py 
+ 1167  python redis_execute_persistent.py 0.9
+ 1168  aws s3 rm s3://redis-p-1 --recursive
+ 1169  vi clear_s3.sh
+ 1170  chmod +x clear_s3.sh 
+ 1171  vi execute.sh
+ 1172  cp clear_s3.sh execute.sh 
+ 1173  vi execute.sh 
+ 1174  git status
+ 1175  rm test 
+ 1176  git add -A
+ 1177  git commit -m "Finalize redis persistent script"
+ 1178  vi redis_execute_persistent.py 
+ 1179  ls
+ 1180  ls
+ 1181  cd jiffy_data
+ 1182  vi jiffy_execute.py 
+ 1183  python3 jiffy_execute.py 
+ 1184  vi jiffy_execute.py 
+ 1185  python3 jiffy_execute.py 
+ 1186  vi jiffy_execute.py 
+ 1187  python3 jiffy_execute.py 
+ 1188  vi jiffy_execute.py 
+ 1189  python3 jiffy_execute.py 
+ 1190  vi jiffy_execute.py 
+ 1191  python3 jiffy_execute.py 
+ 1192  vi jiffy_execute.py 
+ 1193  python3 jiffy_execute.py 
+ 1194  vi jiffy_execute.py 
+ 1195  cd
+ 1196  ls
+ 1197  cd shuffle_app/
+ 1198  ls
+ 1199  vi measure
+ 1200  :q
+ 1201  ls
+ 1202  cd measure/
+ 1203  ls
+ 1204  vi measure_memory.sh 
+ 1205  vi measure_memory_1.sh 
+ 1206  cd ..
+ 1207  ls
+ 1208  vi clear_memory.sh 
+ 1209  cd measure/
+ 1210  ls
+ 1211  jobs -p
+ 1212  watch ls &
+ 1213  jobs -p
+ 1214  watch wc measure_memory.sh &
+ 1215  jobs -p
+ 1216  kill -9 $(jobs -p)
+ 1217  ls
+ 1218  ls
+ 1219  cd jiffy_data_persistent/
+ 1220  ls
+ 1221  vi jiffy_execute.py 
+ 1222  cd ../jiffy_data
+ 1223  ls
+ 1224  vi jiffy_plan_1.csv_
+ 1225  vi jiffy_plan_1.csv_log 
+ 1226  vi jiffy_plan_2.csv_log 
+ 1227  vi jiffy_execute.py 
+ 1228  vi jiffy_plan_2.csv_log 
+ 1229  vi jiffy_execute.py 
+ 1230  watch cat jiffy_plan_1.csv_log 
+ 1231  ls
+ 1232  vim -p *.csv_log
+ 1233  ls
+ 1234  clear
+ 1235  ls
+ 1236  git status
+ 1237  git add jiffy_execute.py
+ 1238  git add ../redis_data/redis_test.py ../redis_data_persistent/redis_execute_persistent.py
+ 1239  git commit -m "Fix"
+ 1240  gut statys
+ 1241  git status
+ 1242  git add ../redis_data/execute.sh ../redis_data/measure/ ../run_redis.sh
+ 1243  got statis
+ 1244  git status
+ 1245  git commit -m "Add redis measurement script"
+ 1246  git status
+ 1247  ls
+ 1248  cd redis_data_persistent/
+ 1249  ls
+ 1250  vi test 
+ 1251  ls
+ 1252  vi redis_p_1.csv 
+ 1253  vi test 
+ 1254  vi test
+ 1255  vi test 
+ 1256  ls
+ 1257  cd ../jiffy_data
+ 1258  ls
+ 1259  vi jiffy_plan_1.csv
+ 1260  ls
+ 1261  vi jiffy_execute.py 
+ 1262  vi jiffy_plan_1.csv
+ 1263  vi ../redis_data/redis_test.py 
+ 1264  vi jiffy_plan_1.csv
+ 1265  vi ../redis_data/jiffy_plan_1.csv 
+ 1266  cd ,,
+ 1267  cd ../redis_data
+ 1268  ls
+ 1269  python redis_test.py 
+ 1270  vi ../redis_data/jiffy_plan_1.csv 
+ 1271  ls
+ 1272  vi redis_test.py 
+ 1273  python redis_test.py 
+ 1274  vi redis_test.py 
+ 1275  python redis_test.py 
+ 1276  vi redis_test.py 
+ 1277  python redis_test.py 
+ 1278  vi redis_test.py 
+ 1279  python redis_test.py 
+ 1280  vi redis_test.py 
+ 1281  python redis_test.py 
+ 1282  vi redis_test.py 
+ 1283  python redis_test.py 
+ 1284  vi redis_test.py 
+ 1285  vi execute.sh
+ 1286  cp -r ../../shuffle_app/measure ./
+ 1287  ls
+ 1288  vi execute.sh 
+ 1289  ls
+ 1290  vi execute.sh 
+ 1291  vi redis_test.py 
+ 1292  cd ..
+ 1293  vi run_redis.sh
+ 1294  chmod +x run_redis.sh redis_data/execute.sh 
+ 1295  ls
+ 1296  cd
+ 1297  cd jiffy
+ 1298  git branch
+ 1299  git log
+ 1300  ls
+ 1301  git status
+ 1302  git pull origin 2020_may
+ 1303  git push origin 2020_may
+ 1304  git reset --hard d479e948506c291dab65ee3f113038a2b608683b
+ 1305  git checkout -b old_queue
+ 1306  git push origin old_queue
+ 1307  git branch
+ 1308  git checkout 2020_may
+ 1309  git pull origin 2020_may
+ 1310  git branch
+ 1311  git checkout persistent_queue
+ 1312  ls
+ 1313  cd hey/
+ 1314  ls
+ 1315  git branch
+ 1316  git status
+ 1317  vi ../libjtmux attach
+ 1318  ls
+ 1319  cd jiffy-pocket-elasticache/
+ 1320  git status
+ 1321  git push origin master
+ 1322  cd
+ 1323  cd jiffy/build/
+ 1324  make -j 8
+ 1325  sudo make install
+ 1326  cd ../hey/y
+ 1327  cd ../hey/
+ 1328  ls
+ 1329  make -j8 && sudo make install
+ 1330  cmake ..
+ 1331  git branch
+ 1332  git checkout persistent_queue
+ 1333  git pull origin persistent_queue
+ 1334  make -j8 && sudo make install
+ 1335  vi ../pyjiffy/jiffy/storage/replica_chain_client.py 
+ 1336  make -j8 && sudo make install
+ 1337  :q
+ 1338  vi ../pyjiffy/jiffy/storage/queue.py 
+ 1339  make -j8 && sudo make install
+ 1340  python3
+ 1341  python
+ 1342  python3
+ 1343  ls
+ 1344  cd
+ 1345  ls
+ 1346  cd jiffy-pocket-elasticache/
+ 1347  git status
+ 1348  git diff
+ 1349  git status
+ 1350  git diff jiffy_data/jiffy_execute.py   
+ 1351  git diff jiffy_data_persistent/jiffy_execute.py   
+ 1352  git status
+ 1353  git checkout jiffy_data_persistent/jiffy_execute.py
+ 1354  git add -A
+ 1355  git commit -m "Save changes"
+ 1356  git push origin master
+ 1357  exit
+ 1358  cd ../jiffy_data
+ 1359  ls
+ 1360  vi jiffy_execute.py 
+ 1361  wc *_log
+ 1362  vi jiffy_execute.py 
+ 1363  ls
+ 1364  wc *.csv_log
+ 1365  vi jiffy_plan_1.csv_log 
+ 1366  cd ..
+ 1367  cd jiffy_data_persistent/
+ 1368  ls
+ 1369  vi jiffy_execute.py 
+ 1370  python jiffy_execute.py  &> 0_8
+ 1371  vi 0_8
+ 1372  python jiffy_execute.py  &> 0_8
+ 1373  vi 0_8
+ 1374  python jiffy_execute.py  &> 0_8
+ 1375  vi jiffy_execute.py 
+ 1376  python jiffy_execute.py  &> 0_8
+ 1377  vi ../jiffy_data/time 
+ 1378  vi jiffy_execute.py 
+ 1379  python jiffy_execute.py  &> 0_6
+ 1380  vi 0_7
+ 1381  vi 0_6
+ 1382  vi jiffy_execute.py 
+ 1383  exit
+ 1384  cd ..
+ 1385  cd jiffy_data
+ 1386  ls
+ 1387  vi jiffy_execute.py 
+ 1388  python3 jiffy_execute.py 
+ 1389  vi jiffy_execute.py 
+ 1390  python3 jiffy_execute.py 
+ 1391  ls
+ 1392  vi time
+ 1393  vi time 
+ 1394  ls
+ 1395  vi time 
+ 1396  vi gen_jiffy.py 
+ 1397  vi jiffy_plan_1.csv
+ 1398  vi jiffy_plan_3.csv_log 
+ 1399  vi jiffy_plan_4.csv_log 
+ 1400  vi jiffy_plan_3.csv_log 
+ 1401  vi jiffy_plan_2.csv_log 
+ 1402  vi jiffy_plan_1.csv_log 
+ 1403  cd ../jiffy_data_persistent/
+ 1404  watch cat 0_8
+ 1405  watch cat 0_6
+ 1406  vi 0_0
+ 1407  vi 0_8 
+ 1408  vi 0_6
+ 1409  python3 jiffy_execute.py 
+ 1410  ls
+ 1411  vi check_total.sh
+ 1412  vi jiffy_plan_1.csv 
+ 1413  vi mimic.py 
+ 1414  cd ..
+ 1415  cd jiffy_data
+ 1416  ls
+ 1417  vi jiffy_time_count.py 
+ 1418  python jiffy_time_count.py 
+ 1419  exit
+ 1420  l
+ 1421  cd ..
+ 1422  cd jiffy_data_persistent/
+ 1423  vi jiffy_execute.py 
+ 1424  python jiffy_execute.py 
+ 1425  ls
+ 1426  vi jiffy_plan_1.csv 
+ 1427  wc jiffy_plan_1.csv 
+ 1428  cp ../jiffy_data/jiffy_plan_1.csv
+ 1429  cp ../jiffy_data/jiffy_plan_1.csv ./
+ 1430  cp ../jiffy_data/jiffy_plan_2.csv ./
+ 1431  cp ../jiffy_data/jiffy_plan_3.csv ./
+ 1432  cp ../jiffy_data/jiffy_plan_4.csv ./
+ 1433  ls
+ 1434  wc jiffy_plan_*
+ 1435  vi jiffy_plan_1.csv 
+ 1436  vi jiffy_execute.py 
+ 1437  exit
+ 1438  ls
+ 1439  cd jiffy-pocket-elasticache/
+ 1440  cd redis_data
+ 1441  ls
+ 1442  vi redis_test.py 
+ 1443  cd measure/
+ 1444  ls
+ 1445  vi servers.txt 
+ 1446  vi servers1.txt 
+ 1447  vi servers2.txt 
+ 1448  vi servers3.txt 
+ 1449  vi servers4.txt 
+ 1450  cd ..
+ 1451  ls
+ 1452  cd ..
+ 1453  cd redis_data_persistent/
+ 1454  ls
+ 1455  vi redis_execute_persistent.py 
+ 1456  cd ..
+ 1457  ls
+ 1458  ./run_redis.sh 
+ 1459  vi run_redis.sh 
+ 1460  ls
+ 1461  cd redis_data
+ 1462  ls
+ 1463  vi execute.sh 
+ 1464  ./execute.sh 
+ 1465  vi execute.sh 
+ 1466  ./execute.sh 
+ 1467  vi execute.sh 
+ 1468  cd measure/
+ 1469  ls
+ 1470  cd ..
+ 1471  ls
+ 1472  cd measure/
+ 1473  pgrep python
+ 1474  cp ../../../shuffle_app/clear_memory.sh ./
+ 1475  ls
+ 1476  vi clear_memory.sh 
+ 1477  cd  ..
+ 1478  vi execute.sh 
+ 1479  ./execute.sh 
+ 1480  vi execute.sh 
+ 1481  vi result.txt 
+ 1482  vi redis_test.py 
+ 1483  vi result.txt 
+ 1484  vi redis_test.py 
+ 1485  ./execute.sh 
+ 1486  ls
+ 1487  vi execute.sh 
+ 1488  vi result.txt 
+ 1489  tmux
+ 1490  exit
+ 1491  ls
+ 1492  dstat -n --nocolor
+ 1493  ls
+ 1494  cd ..
+ 1495  ls
+ 1496  vi workload1 
+ 1497  cat workload1 | sort -n -k2 | tail -1
+ 1498  cat workload1 | sort -n -k2 | tail -2
+ 1499  vi workload2
+ 1500  ls
+ 1501  cd redis_data
+ 1502  ls
+ 1503  vi redis_test.py 
+ 1504  vi -O2 redis_test.py redis_execute.py 
+ 1505  cd ..
+ 1506  cd redis_data_persistent/
+ 1507  ls
+ 1508  vi redis_execute_persistent.py 
+ 1509  cd ..
+ 1510  cd redis_data
+ 1511  ls
+ 1512  cd measure/
+ 1513  ls
+ 1514  vi redis_memory_1.log 
+ 1515  vi ../../workload1
+ 1516  vi -O2  ../../workload1 redis_memory_1.log 
+ 1517  ls
+ 1518  rm redis_memory_*
+ 1519  cd buiui
+ 1520  cd
+ 1521  cd jiffy
+ 1522  cd build/
+ 1523  ./directory/directoryd 
+ 1524  ./directory/directoryd --conf=../conf/jiffy.conf
+ 1525  vi ../conf/jiffy.conf 
+ 1526  ls
+ 1527  ls *tmp*
+ 1528  ls -al *tmp*
+ 1529  vi storage_log 
+ 1530  cp storage_log storage_bk
+ 1531  vi storage_log 
+ 1532  ls
+ 1533  ./directory/directoryd --conf=../conf/jiffy.conf
+ 1534  ./directory/directoryd --conf=../conf/jiffy.conf &> directory_log
+ 1535  make -j8 && sudo make install
+ 1536  python
+ 1537  vi ../conf/jiffy2.conf 
+ 1538  ./storage/storaged --conf=../conf/jiffy2.conf
+ 1539  ./storage/storaged --conf=../conf/jiffy2.conf &> storage_log
+ 1540  vi storage_log 
+ 1541  ./storage/storaged --conf=../conf/jiffy2.conf &> storage_log
+ 1542  ffy_data_persistent/
+ 1543  ls
+ 1544  vi plan_1 
+ 1545  vi jiffy_plan_1.csv 
+ 1546  vi jiffy_execute.py 
+ 1547  dstat -n --nocolor
+ 1548  dstat -cn --nocolor
+ 1549  ls
+ 1550  cd jiffy
+ 1551  ls
+ 1552  cd build/
+ 1553  cd ..
+ 1554  cd hey/y
+ 1555  cd hey/
+ 1556  git branch
+ 1557  vi ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp 
+ 1558  vi ../libjiffy/src/jiffy/storage/fifoqueue/string_array.cpp 
+ 1559  make -j8 && sudo make install
+ 1560  vi ../libjiffy/src/jiffy/storage/fifoqueue/string_array.cpp 
+ 1561  vi ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp 
+ 1562  make -j8 && sudo make install
+ 1563  tmux
+ 1564  ls
+ 1565  clear
+ 1566  ls
+ 1567  cd jiffy-pocket-elasticache/
+ 1568  ls
+ 1569  git status
+ 1570  cd pocket_data
+ 1571  ls
+ 1572  cd ..
+ 1573  vi -O2 redis_data_persistent/redis_execute_persistent.py pocket_data_persistent/pocket_execute.py 
+ 1574  ls
+ 1575  vi jiffy_data/workload_sum 
+ 1576  vi jiffy_data/workload1_diff 
+ 1577  vi ag
+ 1578  vi agg
+ 1579  vi jiffy_data/agg.py 
+ 1580  cd jiffy_data
+ 1581  ls
+ 1582  vi jiffy_execute.py 
+ 1583  ls
+ 1584  vi *.csv_agg
+ 1585  :q
+ 1586  vi -p *.csv_agg
+ 1587  cat jiffy_plan_1.csv_agg 
+ 1588  :q
+ 1589  cat jiffy_plan_1.csv_agg  | awk '{print $1, $2}'
+ 1590  awk 'BEGIN{a=   0}{if ($2>0+a) a=$2} END{print a}' jiffy_plan_1.csv
+ 1591  awk 'BEGIN{a=   0}{if ($2>0+a) a=$2} END{print a}' jiffy_plan_1.csv_agg 
+ 1592  awk 'BEGIN{a=   0}{if ($2>0+a) a=$2} END{print a}' jiffy_plan_2.csv_agg 
+ 1593  awk 'BEGIN{a=   0}{if ($2>0+a) a=$2} END{print a}' jiffy_plan_3.csv_agg 
+ 1594  awk 'BEGIN{a=   0}{if ($2>0+a) a=$2} END{print a}' jiffy_plan_4.csv_agg 
+ 1595  vi -O2 redis_data_persistent/redis_execute_persistent.py pocket_data_persistent/pocket_execute.py 
+ 1596  cd ..
+ 1597  vi -O2 redis_data_persistent/redis_execute_persistent.py pocket_data_persistent/pocket_execute.py 
+ 1598  git status
+ 1599  git add -A
+ 1600  git commit -m "Update"
+ 1601  git commit -m "Fix"
+ 1602  git push origin master
+ 1603  git pull origin master
+ 1604  ls
+ 1605  vi pocket_data/pocket_execute.py 
+ 1606  ls
+ 1607  ls -al
+ 1608  df
+ 1609  cd ..
+ 1610  cd jiffy
+ 1611  cd hey
+ 1612  ls
+ 1613  rm *tmp*
+ 1614  ls
+ 1615  la -al
+ 1616  ls -al
+ 1617  df
+ 1618  vi bench.cpp
+ 1619  vi -O4 bench.cpp ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.h ../libjiffy/src/jiffy/utils/time_utils.h 
+ 1620  :q
+ 1621  vi -O4 bench.cpp ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp ../libjiffy/src/jiffy/storage/fifoqueue/string_array.cpp ../libjiffy/src/jiffy/utils/time_utils.h 
+ 1622  g++ bench.cpp 
+ 1623  g++ bench.cpp -std=c++11
+ 1624  vi bench.cpp 
+ 1625  g++ bench.cpp -std=c++11
+ 1626  vi bench.cpp 
+ 1627  g++ bench.cpp -std=c++11
+ 1628  vi bench.cpp 
+ 1629  g++ bench.cpp -std=c++11
+ 1630  vi bench.cpp 
+ 1631  g++ bench.cpp -std=c++11
+ 1632  vi bench.cpp 
+ 1633  g++ bench.cpp -std=c++11
+ 1634  vi bench.cpp 
+ 1635  g++ bench.cpp -std=c++11
+ 1636  ./a.out 
+ 1637  vi bench.cpp 
+ 1638  ./a.out 
+ 1639  rm test_output 
+ 1640  ./a.out 
+ 1641  rm test_output 
+ 1642  ./a.out 
+ 1643  ls
+ 1644  vi bench.cpp 
+ 1645  g++ bench.cpp -std=c++11
+ 1646  ./a.out 
+ 1647  vi bench.cpp 
+ 1648  g++ bench.cpp -std=c++11
+ 1649  vi bench.cpp 
+ 1650  g++ bench.cpp -std=c++11
+ 1651  vi bench.cpp 
+ 1652  g++ bench.cpp -std=c++11
+ 1653  ./a.out 
+ 1654  vi bench.cpp 
+ 1655  g++ bench.cpp -std=c++11
+ 1656  ./a.out 
+ 1657  vi bench.cpp 
+ 1658  g++ bench.cpp -std=c++11
+ 1659  ./a.out 
+ 1660  vi bench.cpp 
+ 1661  git clone https://gist.github.com/f5e181c0a87e883816aaa4f3a63941b9.git
+ 1662  cp bench.cpp f5e181c0a87e883816aaa4f3a63941b9/Memcpy_Filewrite_cmp.cpp 
+ 1663  cd f5e181c0a87e883816aaa4f3a63941b9/
+ 1664  git status
+ 1665  git add -A
+ 1666  git commit -m "Update"
+ 1667  git push origin master
+ 1668  cd
+ 1669  cd jiffy-pocket-elasticache/
+ 1670  ls
+ 1671  cd redis_data_persistent/
+ 1672  git pull origin master
+ 1673  ls
+ 1674  vi 0_2
+ 1675  vi execute.sh 
+ 1676  vi redis_execute_persistent.py 
+ 1677  ls
+ 1678  vi execute.sh 
+ 1679  mkdir backup
+ 1680  mv 0_* ./backup/
+ 1681  mv 1_0 backup/
+ 1682  ls
+ 1683  vi execute.sh 
+ 1684  tmux
+ 1685  ls
+ 1686  vi execute.sh 
+ 1687  ls
+ 1688  vi execute.sh 
+ 1689  vi servers.txt 
+ 1690  ls
+ 1691  watch cat 1_0 
+ 1692  vi 1_0 
+ 1693  vi redis_execute_persistent.py 
+ 1694  wc jiffy_plan_1.csv 
+ 1695  vi redis_execute_persistent.py 
+ 1696  cd ../redis_data/
+ 1697  vi redis_execute.py 
+ 1698  vi redis_test.py 
+ 1699  vi -O2 redis_test.py ../redis_data_persistent/redis_execute_persistent.py 
+ 1700  python redis_test.py 
+ 1701  vi redis_test.py 
+ 1702  python redis_test.py 
+ 1703  vi redis_test.py 
+ 1704  ls
+ 1705  cd ../redis_data
+ 1706  ls
+ 1707  vi redis_execute.py 
+ 1708  vi redis_test.py 
+ 1709  cd ../jiffy_data
+ 1710  ls
+ 1711  vi jiffy_execute.py 
+ 1712  ls
+ 1713  mkdir backup
+ 1714  mv *_log backup/
+ 1715  vi jiffy_execute.py 
+ 1716  python jiffy_execute.py 
+ 1717  vi single_op_test.py 
+ 1718  python single_op_test.py 
+ 1719  vi single_op_test.py 
+ 1720  python single_op_test.py 
+ 1721  vi single_op_test.py 
+ 1722  python single_op_test.py 
+ 1723  ls
+ 1724  cd ..
+ 1725  cd redis_data
+ 1726  ls
+ 1727  vi single_op_test.py 
+ 1728  git diff ./single_op_test.pyn
+ 1729  git diff ./single_op_test.py
+ 1730  vi single_op_test.py 
+ 1731  python single_op_test.py 
+ 1732  vi single_op_test.py 
+ 1733  python single_op_test.py 
+ 1734  vi single_op_test.py 
+ 1735  python single_op_test.py 
+ 1736  vi single_op_test.py 
+ 1737  python single_op_test.py 
+ 1738  ./execute.sh 
+ 1739  ls
+ 1740  vi execute.sh 
+ 1741  ./execute.sh 
+ 1742  clear
+ 1743  vi execute.sh 
+ 1744  ./execute.sh 
+ 1745  ls
+ 1746  cat execute.sh 
+ 1747  python redis_execute_persistent.py 1.0
+ 1748  vi redis_execute_persistent.py 
+ 1749  vi execute.sh 
+ 1750  ./execute.sh 
+ 1751  vi redis_execute_persistent.py 
+ 1752  cat  execute.sh 
+ 1753  ./clear_s3.sh && ./clear_memory.sh && python redis_execute_persistent.py 0.2 &> real
+ 1754  vi real
+ 1755  ./execute.sh 
+ 1756  vi redis_execute_persistent.py 
+ 1757  ./clear_memory.sh 
+ 1758  python redis_execute_persistent.py 1.0 &> output
+ 1759  ./clear_s3.sh 
+ 1760  ./clear_memory.sh 
+ 1761  python redis_execute_persistent.py 1.0 &> output
+ 1762  ./clear_memory.sh 
+ 1763  python redis_execute_persistent.py 1.0 
+ 1764  ./clear_memory.sh 
+ 1765  python redis_execute_persistent.py 1.0 > output
+ 1766  ./clear_memory.sh 
+ 1767  python redis_execute_persistent.py 1.0 
+ 1768  ./clear_memory.sh 
+ 1769  vi redis_execute_persistent.py 
+ 1770  ./clear_memory.sh 
+ 1771  python redis_execute_persistent.py 1.0 
+ 1772  ./clear_memory.sh 
+ 1773  vi redis_execute_persistent.py 
+ 1774  python redis_execute_persistent.py 1.0 
+ 1775  ./clear_memory.sh 
+ 1776  python redis_execute_persistent.py 1.0 
+ 1777  if ($1<0+a) a=$1} END{print a}'
+ 1778  vi redis_execute_persistent.py 
+ 1779  vi ../redis_data/redis_test.py 
+ 1780  vi redis_execute_persistent.py 
+ 1781  vi ../jiffy_data/jiffy_execute.py 
+ 1782  vi ../redis_data/redis_execute.py 
+ 1783  vi ../redis_data/redis_test.py 
+ 1784  vi redis_execute_persistent.py 
+ 1785  python redis_execute_persistent.py 
+ 1786  python redis_execute_persistent.py 1.0
+ 1787  vi redis_execute_persistent.py 
+ 1788  python redis_execute_persistent.py 1.0 > findmax
+ 1789  ls
+ 1790  vi 1_0 
+ 1791  vi 0_8
+ 1792  vi 0_6
+ 1793  vi 0_6:q
+ 1794  vi 0_4
+ 1795  vi 0_2
+ 1796  ls
+ 1797  mkdir backup3
+ 1798  cd backup3/
+ 1799  cp ../0_* ./
+ 1800  cp ../1_* ./
+ 1801  ls
+ 1802  vi 0_2
+ 1803  cp ../real ./
+ 1804  vi real 
+ 1805  cd ..
+ 1806  ls
+ 1807  cat 1_0
+ 1808  cat 0_8
+ 1809  cat 0_6
+ 1810  cat 0_8
+ 1811  cat 0_6
+ 1812  cat 0_4
+ 1813  cd backup3
+ 1814  cat *
+ 1815  cat 0_4
+ 1816  cd ..
+ 1817  cd backup2/
+ 1818  ls
+ 1819  cat *
+ 1820  cd ..
+ 1821  cd backup
+ 1822  cat *
+ 1823  cd ..
+ 1824  ls
+ 1825  cat 0_*
+ 1826  cat 0_2
+ 1827  cat 1_0
+ 1828  cat 0_8
+ 1829  cat 0_0
+ 1830  cat 0_9
+ 1831  cat 0_8
+ 1832  cat 0_6
+ 1833  cat 0_4
+ 1834  cat 0_2
+ 1835  cat 1_0
+ 1836  cat 0_8
+ 1837  cat 0_2
+ 1838  cat 0_3
+ 1839  cat 0_4
+ 1840  cat 0_6
+ 1841  cat 0_8
+ 1842  cat 1_0
+ 1843  mkdir backup4
+ 1844  mv 0_* backup4/
+ 1845  mv 1_0 backup4/
+ 1846  ls
+ 1847  tmux
+ 1848  ls
+ 1849  cd jiffy-pocket-elasticache/
+ 1850  ls
+ 1851  cd redis_data_persistent/
+ 1852  ls
+ 1853  clear
+ 1854  ls
+ 1855  vi redis_execute_persistent.py 
+ 1856  vim -p *csv_log
+ 1857  vi redis_execute_persistent.py 
+ 1858  vim -p *csv_log
+ 1859  vi redis_execute_persistent.py 
+ 1860  :/deletel
+ 1861  vi redis_execute_persistent.py 
+ 1862  vim -p *csv_log
+ 1863  :q
+ 1864  ls
+ 1865  vi redis_execute_persistent.py 
+ 1866  vim -p *csv_log
+ 1867  ls
+ 1868  clear
+ 1869  cd jiffy-pocket-elasticache/
+ 1870  cd redis_data_persistent/
+ 1871  ls
+ 1872  vi parallel.py 
+ 1873  ls
+ 1874  cd jiffy-pocket-elasticache/
+ 1875  ls
+ 1876  cd redis_data_persistent/
+ 1877  ls
+ 1878  vi redis_execute_persistent.py 
+ 1879  cp redis_execute_persistent.py parallel.py
+ 1880  vi parallel.py 
+ 1881  0;120;9M0;120;9m
+ 1882  0;114;18M0;114;18mccclear
+ 1883  c
+ 1884  kkfoekofj 0#0
+ 1885  ls
+ 1886  cd jiffy-pocket-elasticache/
+ 1887  ls
+ 1888  cd redis_data
+ 1889  cd ..
+ 1890  cd redis_data_persistent/backup
+ 1891  cd ..
+ 1892  ;s
+ 1893  ls
+ 1894  vi parallel.py 
+ 1895  python parallel.py 
+ 1896  python parallel.py 0.2
+ 1897  vim -p *.csv_log
+ 1898  rm *.csv_log
+ 1899  ls
+ 1900  python parallel.py 0.2
+ 1901  vim -p *.csv_log
+ 1902  rm ~/.vimswap/*  
+ 1903  vim -p *.csv_log
+ 1904  vi parallel.py 
+ 1905  vim -p *.csv_log
+ 1906  vi jiffy_plan_1.csv
+ 1907  vim -p *.csv_log
+ 1908  cat *.csv_log | head -103
+ 1909  cat *.csv_log | head -103 > output 
+ 1910  vi -O2 output jiffy_plan_1.csv
+ 1911  cat output 
+ 1912  python
+ 1913  vi -O2 output jiffy_plan_1.csv
+ 1914  vi redis_execute_persistent.py 
+ 1915  vi parallel.py 
+ 1916  python parallel.py 0.2
+ 1917  vim -p *.csv_log
+ 1918  vi parallel.py 
+ 1919  python parallel.py 0.2
+ 1920  vim -p *.csv_log
+ 1921  cd ..
+ 1922  git add redis_data_persistent/
+ 1923  0;123;15M0;123;15mls
+ 1924  cd jiffy-pocket-elasticache/
+ 1925  ls
+ 1926  cd redis_data_persistent/
+ 1927  vi parallel.py 
+ 1928  python parallel.py 
+ 1929  python parallel.py 0.2
+ 1930  ls
+ 1931  vim -p *.csv_log
+ 1932  rm ~/.vimswap/*
+ 1933  python parallel.py 0.2
+ 1934  vim -p *.csv_log
+ 1935  ./directory/directoryd 
+ 1936  ./directory/directoryd &> directory_log
+ 1937  ./storage/storaged 
+ 1938  ./storage/storaged &> storage_log 
+ 1939  vi client_log 
+ 1940  git checkout persistent_queue
+ 1941  git checkout libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp   
+ 1942  git checkout ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp   \
+ 1943  git checkout ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp   
+ 1944  git checkout persistent_queue
+ 1945  vi ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp 
+ 1946  make -j8 && sudo make install
+ 1947  cd ..
+ 1948  cd
+ 1949  cd jiffy-pocket-elasticache/
+ 1950  vi redis.conf 
+ 1951  ls
+ 1952  cd jiffy-pi
+ 1953  cd jiffy-pocket-elasticache/
+ 1954  ls
+ 1955  cd redis_data
+ 1956  ls
+ 1957  vi redis_test.py 
+ 1958  cd ..
+ 1959  ls
+ 1960  cd jiffy_data
+ 1961  l
+ 1962  svi jiffy_execute.py 
+ 1963  vi jiffy_execute.py 
+ 1964  cd
+ 1965  ls
+ 1966  cd jiffy
+ 1967  ls
+ 1968  git branch
+ 1969  ls
+ 1970  git status
+ 1971  git checkout persistent_queue
+ 1972  ls
+ 1973  cd libjiffy/src/jiffy/storage/fifoqueue/
+ 1974  ls
+ 1975  vi string_array_persistent.cpp 
+ 1976  cd 
+ 1977  cd jiffy/hey/
+ 1978  make -j 64
+ 1979  git status
+ 1980  git add -A
+ 1981  git add -u
+ 1982  git commit -m "Add sleep time"
+ 1983  git push origin persistent_queue
+ 1984  git pull origin persistent_queueu
+ 1985  git pull origin persistent_queue
+ 1986  vi ibjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp
+ 1987  vi libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp
+ 1988  vi ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp
+ 1989  make -j 64
+ 1990  git status
+ 1991  git add -u
+ 1992  git commit -m "resolve conflict"
+ 1993  git push origin persistent)queue
+ 1994  git push origin persistent_queue
+ 1995  git checkout persistent_evaluation
+ 1996  ls
+ 1997  git status
+ 1998  vi ../libjiffy/src/jiffy/storage/fifoqueue/string_array_persistent.cpp
+ 1999  make -j 64
+ 2000  tmux
+ 2001  ls
+ 2002  cd jiffy-pocket-elasticache/
+ 2003  ls
+ 2004  git status
+ 2005  git log
+ 2006  git diff
+ 2007  git staqtus
+ 2008  git status
+ 2009  history > check

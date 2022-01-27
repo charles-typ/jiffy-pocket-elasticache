@@ -56,12 +56,13 @@ def execute(filename, hostname, rs, execution_plan):
         for i in range(1, len(execution_plan)):
             cur_time = execution_plan[i][0]
             command = execution_plan[i][1:]
-            time_to_sleep = int(cur_time) - int(prev_time)
-            start = time.time()
+            #time_to_sleep = int(cur_time) - int(prev_time)
+            #start = time.time()
             run_command(command, rs, tenant_name)
-            end = time.time()
-            if(end - start < time_to_sleep):
-                time.sleep(time_to_sleep - end + start)
+            #end = time.time()
+            #print(filename + " " + str(i) + " " + str(end - start))
+            #if(end - start < time_to_sleep):
+            #    time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
 
 
@@ -75,16 +76,17 @@ if __name__ == "__main__":
     #FileName = ["jiffy_plan_1.csv"]
     #FileName = ["32571881_plan.csv_norm", "32571893_plan.csv_norm", "32572121_plan.csv_norm", "492868_plan.csv_norm"]
     #HostName = ["ec2-34-216-61-41.us-west-2.compute.amazonaws.com"]
-    HostName = ["ec2-34-216-61-41.us-west-2.compute.amazonaws.com",
-			"ec2-54-200-251-133.us-west-2.compute.amazonaws.com",
-			"ec2-52-34-187-231.us-west-2.compute.amazonaws.com",
-			"ec2-52-27-238-211.us-west-2.compute.amazonaws.com",
-			"ec2-54-184-125-7.us-west-2.compute.amazonaws.com",
-			"ec2-34-219-16-124.us-west-2.compute.amazonaws.com",
-			"ec2-52-35-251-62.us-west-2.compute.amazonaws.com",
-			"ec2-52-43-242-95.us-west-2.compute.amazonaws.com",
-			"ec2-52-34-194-170.us-west-2.compute.amazonaws.com",
-			"ec2-54-202-113-161.us-west-2.compute.amazonaws.com"]
+
+    HostName = ["ec2-52-24-220-181.us-west-2.compute.amazonaws.com",
+                  "ec2-54-191-224-102.us-west-2.compute.amazonaws.com",
+                  "ec2-54-212-229-49.us-west-2.compute.amazonaws.com",
+                  "ec2-52-38-9-169.us-west-2.compute.amazonaws.com",
+                  "ec2-34-214-106-253.us-west-2.compute.amazonaws.com",
+                  "ec2-34-222-251-186.us-west-2.compute.amazonaws.com",
+                  "ec2-34-220-6-79.us-west-2.compute.amazonaws.com",
+                  "ec2-34-216-49-7.us-west-2.compute.amazonaws.com",
+                  "ec2-34-222-90-78.us-west-2.compute.amazonaws.com",
+                  "ec2-52-40-138-200.us-west-2.compute.amazonaws.com"]
 
     rs = create_connection(HostName)
     execution = {}

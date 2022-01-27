@@ -106,8 +106,9 @@ def execute(filename, fq, execution_plan):
             start = time.time()
             run_command(command, fq, tenant_name)
             end = time.time()
-            if(end - start < time_to_sleep):
-                time.sleep(time_to_sleep - end + start)
+            print(filename + " " + str(i) + " " + str(end - start))
+            #if(end - start < time_to_sleep):
+            #    time.sleep(time_to_sleep - end + start)
             prev_time = cur_time
         log_thread.do_run = False
         log_thread.join()
@@ -118,7 +119,7 @@ if __name__ == "__main__":
     FileName = ["jiffy_plan_1.csv", "jiffy_plan_2.csv", "jiffy_plan_3.csv", "jiffy_plan_4.csv"]
     Para = 1
     #FileName = ["jiffy_plan_1.csv"]
-    Directory_Server = "172.31.17.100"
+    Directory_Server = "172.31.42.113"
     client = JiffyClient(Directory_Server);
     fqs = create_connection(Directory_Server, FileName, client, Para)
     execution = {}
